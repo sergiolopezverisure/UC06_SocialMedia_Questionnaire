@@ -1,0 +1,754 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Discovery Questionnaire – UC06 Social Media</title>
+<style>
+:root{
+  --bg:#f4f7fb; --ink:#182433; --muted:#5c6b7a; --line:#d8e3ef;
+  --accent:#0b63ce; --soft:#eef5ff;
+  --green:#0f8f5f; --green-soft:#eaf8ef; --green-line:#b6e8d0;
+  --amber:#9e6b00; --amber-soft:#fff8dd; --amber-line:#e8d48e;
+  --red:#b13b31; --red-soft:#fdeceb; --red-line:#f5c6c3;
+  --purple:#5b21b6; --purple-soft:#f3e8ff; --purple-line:#d4b0f7;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Segoe UI,Arial,sans-serif;line-height:1.55}
+
+.header{background:#102031;color:#fff;padding:28px 40px;border-bottom:4px solid var(--accent)}
+.header h1{margin:0 0 8px;font-size:30px}
+.header p{margin:6px 0 0;color:#bfd0e0;max-width:1250px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.badge{background:#18344d;border:1px solid #2b4964;border-radius:20px;padding:6px 10px;font-size:12px;color:#d5e4f5}
+
+.container{max-width:1200px;margin:0 auto;padding:28px 32px 60px}
+
+.flow-banner{border-radius:12px;padding:14px 20px;margin:28px 0 6px;display:flex;align-items:center;gap:12px}
+.flow-banner-a{background:#dbeafe;border:2px solid #93c5fd}
+.flow-banner-b{background:#d1fae5;border:2px solid #6ee7b7}
+.flow-banner-x{background:var(--red-soft);border:2px solid var(--red-line)}
+.flow-banner .flow-label{font-size:18px;font-weight:800;letter-spacing:.01em}
+.flow-banner .flow-desc{font-size:13.5px;margin:0}
+.flow-label-a{color:#1d4ed8}
+.flow-label-b{color:#065f46}
+.flow-label-x{color:var(--red)}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 2px 8px rgba(18,40,70,.04);margin-bottom:16px}
+.card-a{background:#fff;border:1px solid #bfdbfe;border-radius:14px;padding:20px 22px;box-shadow:0 2px 8px rgba(29,78,216,.05);margin-bottom:16px;border-left:4px solid #2563eb}
+.card-b{background:#fff;border:1px solid var(--green-line);border-radius:14px;padding:20px 22px;box-shadow:0 2px 8px rgba(15,143,95,.05);margin-bottom:16px;border-left:4px solid var(--green)}
+.card-x{background:#fff;border:1px solid var(--red-line);border-radius:14px;padding:20px 22px;box-shadow:0 2px 8px rgba(177,59,49,.05);margin-bottom:16px;border-left:4px solid var(--red)}
+.card-critical{background:#fff;border:1px solid var(--purple-line);border-radius:14px;padding:20px 22px;box-shadow:0 2px 8px rgba(91,33,182,.06);margin-bottom:16px;border-left:4px solid var(--purple)}
+.card-insight{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:14px;padding:22px 24px;margin-bottom:20px}
+
+h2{font-size:20px;margin:0 0 10px}
+p{margin:0 0 8px}
+ul,ol{margin:6px 0 8px 20px;padding:0}
+li{margin:4px 0}
+.note{font-size:13px;color:var(--muted)}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.section-icon{font-size:18px;line-height:1}
+.section-divider{border:none;border-top:1px solid var(--line);margin:6px 0 12px}
+
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.pill-a{background:#dbeafe;color:#1d4ed8}
+.pill-b{background:#d1fae5;color:#065f46}
+.pill-x{background:var(--red-soft);color:var(--red)}
+.pill-purple{background:var(--purple-soft);color:var(--purple)}
+.pill-red{background:var(--red-soft);color:var(--red)}
+.pill-amber{background:var(--amber-soft);color:var(--amber)}
+
+.alert{background:var(--red-soft);border:1px solid var(--red-line);border-radius:8px;padding:10px 14px;margin:10px 0;font-size:13px}
+.alert strong{color:var(--red)}
+.alert-a{background:#dbeafe;border:1px solid #93c5fd;border-radius:8px;padding:10px 14px;margin:10px 0;font-size:13px}
+.alert-a strong{color:#1d4ed8}
+.alert-b{background:#d1fae5;border:1px solid #6ee7b7;border-radius:8px;padding:10px 14px;margin:10px 0;font-size:13px}
+.alert-b strong{color:#065f46}
+.alert-amber{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:8px;padding:10px 14px;margin:10px 0;font-size:13px}
+.alert-amber strong{color:var(--amber)}
+.alert-purple{background:var(--purple-soft);border:1px solid var(--purple-line);border-radius:8px;padding:10px 14px;margin:10px 0;font-size:13px}
+.alert-purple strong{color:var(--purple)}
+
+.q-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:10px 0}
+@media(max-width:800px){.q-grid{grid-template-columns:1fr}}
+.q-block{background:#f8fafd;border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.q-block-a{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px 16px}
+.q-block-b{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 16px}
+.q-block p,.q-block-a p,.q-block-b p{margin:0 0 5px;font-weight:600;font-size:14px}
+.q-block ul,.q-block-a ul,.q-block-b ul{margin:4px 0 0 16px}
+.q-block li,.q-block-a li,.q-block-b li{margin:3px 0;font-size:13.5px;color:var(--ink)}
+
+.kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+.kpi{background:var(--soft);border:1px solid #d2e2f7;border-radius:12px;padding:12px 14px;min-width:180px;flex:1}
+.kpi strong{display:block;margin-bottom:4px;font-size:12px;color:var(--accent)}
+
+.principle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+@media(max-width:800px){.principle-grid{grid-template-columns:1fr}}
+.principle-box{border-radius:12px;padding:14px 16px}
+.p1{background:var(--soft);border:1px solid #c3d9f7}
+.p2{background:var(--amber-soft);border:1px solid var(--amber-line)}
+.p3{background:var(--green-soft);border:1px solid var(--green-line)}
+.p4{background:var(--red-soft);border:1px solid var(--red-line)}
+.principle-box .num{font-size:20px;font-weight:800;margin-bottom:4px}
+.principle-box h4{margin:0 0 4px;font-size:13.5px;color:var(--ink)}
+.principle-box p{margin:0;font-size:13px}
+
+.index-list{columns:2;gap:24px}
+@media(max-width:700px){.index-list{columns:1}}
+.index-list li{margin:4px 0}
+a.anchor{color:var(--accent);text-decoration:none}
+a.anchor:hover{text-decoration:underline}
+.index-sub{font-size:12px;color:var(--muted);margin-left:6px}
+
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:14px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#17314a;color:#fff;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+tr:last-child td{border-bottom:none}
+#ws-table td:first-child{font-weight:600;font-size:12px;color:var(--muted);white-space:nowrap;width:150px}
+#ws-table td:nth-child(2){font-size:13px;width:360px}
+#ws-table tbody td:nth-child(3){border-left:3px solid #000;font-size:13px;line-height:1.5;color:#000}
+td.editable{cursor:text;min-width:180px}
+td.editable:focus{outline:2px solid var(--accent);border-radius:3px}
+td.editable-a{cursor:text}
+td.editable-a:focus{outline:2px solid #2563eb;border-radius:3px}
+td.editable-b{cursor:text}
+td.editable-b:focus{outline:2px solid var(--green);border-radius:3px}
+td.known:focus{outline:2px solid var(--amber);border-radius:3px}
+td.gap-cell:focus{outline:2px solid var(--red);border-radius:3px}
+
+.footer{font-size:12px;color:var(--muted);margin-top:12px;text-align:center;padding-top:20px;border-top:1px solid var(--line)}
+
+/* Architecture diagram */
+.arch-diagram{border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:12.5px;background:#fff;margin-top:10px}
+.arch-swim{display:flex}
+.arch-swim+.arch-swim{border-top:1px solid #e5e7eb}
+.arch-swim-label{writing-mode:vertical-rl;transform:rotate(180deg);background:#dc2626;color:#fff;font-weight:800;font-size:11px;padding:14px 7px;text-align:center;white-space:nowrap;letter-spacing:.07em;min-width:30px;flex-shrink:0}
+.arch-swim-body{flex:1;padding:14px 14px;display:flex;gap:10px;align-items:stretch}
+.arch-box{flex:1;border:2px solid #374151;border-radius:8px;padding:11px 13px;background:#fff}
+.arch-box.arch-dashed{border:2px dashed #dc2626;background:#fff}
+.arch-box strong{display:block;font-size:12.5px;margin:0 0 2px}
+.arch-box em{display:block;font-size:11px;color:var(--muted);margin:0 0 5px;font-style:italic}
+.arch-box ul{margin:3px 0 0 14px;padding:0}
+.arch-box li{margin:2px 0;font-size:11.5px;line-height:1.4}
+.arch-conn-row{display:flex;gap:10px;padding:0 14px 0 44px;height:34px;align-items:center}
+.arch-arrow{flex:1;text-align:center;font-size:20px;color:#6b7280;line-height:1}
+.arch-ot-row{display:flex;justify-content:center;padding:6px 14px}
+.ot-central{border:2.5px solid #16a34a;border-radius:10px;padding:12px 20px;background:#fff;display:flex;align-items:center;gap:16px;width:500px;max-width:100%}
+.ot-logo{font-size:13px;font-weight:900;letter-spacing:-.5px;line-height:1.2;white-space:nowrap;color:#000}
+.ot-logo span{display:block;font-size:20px;color:#1c753a;letter-spacing:0}
+.ot-central ul{margin:3px 0 0 14px;padding:0}
+.ot-central li{margin:2px 0;font-size:11.5px}
+.arch-ot-conn{display:flex;justify-content:center;padding:0 14px;height:32px;align-items:center}
+</style>
+</head>
+<body>
+<header class="header">
+  <h1>Discovery Questionnaire – UC06 Social Media</h1>
+  <p><strong>Workstream:</strong> Consent Management Deployment Project &nbsp;|&nbsp; <strong>Use Case:</strong> UC06 – Social Media Targeting &amp; Audience Activation</p>
+  <p>Structured as two parallel discovery flows: <strong style="color:#93c5fd">A · Pixel / Tracking-based social</strong> and <strong style="color:#6ee7b7">B · CRM / First-party data</strong>, plus cross-cutting blocks on traceability, systems and gaps.</p>
+  <div class="meta">
+    <span class="badge">UC06 – Social Media</span>
+    <span class="badge">🔵 Flow A: Pixel / Tracking</span>
+    <span class="badge">🟢 Flow B: CRM / First-party data</span>
+    <span class="badge">Priority #1 in IT mapping</span>
+    <span class="badge">Audience: Marketing · IT · Privacy · CRM · Data · Agencies</span>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- INDEX -->
+  <section class="card">
+    <h2 id="index">Index</h2>
+    <ol class="index-list">
+      <li><a class="anchor" href="#s1">1 · Business context + data origin split</a></li>
+      <li><a class="anchor" href="#s2a">2A · Tracking setup</a><span class="index-sub">🔵 A</span></li>
+      <li><a class="anchor" href="#s3a">3A · Consent category in banner</a><span class="index-sub">🔵 A</span></li>
+      <li><a class="anchor" href="#s4a">4A · Data collected and identifiers</a><span class="index-sub">🔵 A</span></li>
+      <li><a class="anchor" href="#s5a">5A · Purposes of tracking</a><span class="index-sub">🔵 A</span></li>
+      <li><a class="anchor" href="#s6a">6A · Cookie expiry and re-consent</a><span class="index-sub">🔵 A</span></li>
+      <li><a class="anchor" href="#s7a">7A · Revocation (tracking)</a><span class="index-sub">🔵 A</span></li>
+      <li><a class="anchor" href="#s2b">2B · Internal data origin</a><span class="index-sub">🟢 B</span></li>
+      <li><a class="anchor" href="#s3b">3B · Consent capture</a><span class="index-sub">🟢 B</span></li>
+      <li><a class="anchor" href="#s4b">4B · Identifiers used in social</a><span class="index-sub">🟢 B</span></li>
+      <li><a class="anchor" href="#s5b">5B · Audience creation</a><span class="index-sub">🟢 B</span></li>
+      <li><a class="anchor" href="#s6b">6B · Consent validation</a><span class="index-sub">🟢 B</span></li>
+      <li><a class="anchor" href="#s7b">7B · Consent expiry</a><span class="index-sub">🟢 B</span></li>
+      <li><a class="anchor" href="#s8b">8B · Revocation and sync</a><span class="index-sub">🟢 B</span></li>
+      <li><a class="anchor" href="#s9">9 · Traceability and logging</a><span class="index-sub">🔴 Cross</span></li>
+      <li><a class="anchor" href="#s10">10 · Systems and architecture</a><span class="index-sub">🔴 Cross</span></li>
+      <li><a class="anchor" href="#s11">11 · Risks and gaps</a><span class="index-sub">🔴 Cross</span></li>
+      <li><a class="anchor" href="#insight">Key insight for workshops</a></li>
+      <li><a class="anchor" href="#worksheet">Per-country worksheet</a></li>
+    </ol>
+  </section>
+
+  <!-- WHY UC06 -->
+  <section class="card">
+    <div class="section-header">
+      <span class="section-icon">&#128204;</span>
+      <h2 style="margin:0">Why is UC06 priority #1?</h2>
+    </div>
+    <p>UC06 covers two fundamentally different data flows that require separate consent models, separate controls, and separate gap analyses. Running discovery without splitting them leads to incomplete findings in both.</p>
+    <div class="kpis">
+      <div class="kpi"><strong>🔵 Flow A risk</strong>Pixels firing before consent; generic "Advertising" category with no social distinction.</div>
+      <div class="kpi"><strong>🟢 Flow B risk</strong>CRM list uploads to Meta without dedicated social targeting consent.</div>
+      <div class="kpi"><strong>Common to both</strong>No audit trail, no central consent validation, no revocation propagation to platforms.</div>
+      <div class="kpi"><strong>Highest-risk area</strong>Manual CSV uploads by agencies (B) and unblocked pixels (A).</div>
+    </div>
+  </section>
+
+  <!-- B1 – CRITICAL SPLIT -->
+  <section class="card-critical" id="s1">
+    <div class="section-header">
+      <span class="section-icon">&#129517;</span>
+      <h2 style="margin:0">1. Business context</h2>
+      <span class="pill pill-purple">Defines the rest of the discovery</span>
+    </div>
+    <hr style="border:none;border-top:1px solid var(--purple-line);margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block">
+        <p>What is social media used for?</p>
+        <ul>
+          <li>Custom audiences, retargeting, lookalikes</li>
+          <li>Conversion tracking</li>
+        </ul>
+      </div>
+      <div class="q-block">
+        <p>Which platforms are active?</p>
+        <ul>
+          <li>Meta, Google, TikTok, LinkedIn, others?</li>
+        </ul>
+      </div>
+      <div class="q-block">
+        <p>Who manages campaigns and audiences?</p>
+        <ul>
+          <li>Internal team or external agency?</li>
+          <li>Which tools does the agency use?</li>
+        </ul>
+      </div>
+      <div class="q-block" style="background:var(--purple-soft);border:1px solid var(--purple-line)">
+        <p style="color:var(--purple)">&#9888;&#65039; CRITICAL — What is the origin of data used in social?</p>
+        <ul>
+          <li><strong>A</strong> · Pixel / tracking (web or app)</li>
+          <li><strong>B</strong> · Internal tools (CRM / CDP)</li>
+          <li><strong>A + B</strong> · Both</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-purple">
+      <strong>Why this question defines everything:</strong> The answer determines which flows to run. Most countries will answer "both" — but confirming this early avoids wasted discovery time and ensures no flow is skipped.
+    </div>
+  </section>
+
+  <!-- ══ FLOW A ══ -->
+  <div class="flow-banner flow-banner-a" id="flow-a">
+    <span style="font-size:26px">🔵</span>
+    <div>
+      <div class="flow-label flow-label-a">Flow A &nbsp;·&nbsp; Pixel / Tracking-based social</div>
+      <p class="flow-desc" style="color:#1e40af">Covers pixels, SDKs, tag managers and any social activation originating from web or app tracking. Some of the questions can be directly seen in the webpage (as example, configuration of CMP). Important to unsderstand that customers may accept cookies before login, and this configuration remains for all the navigation.</p>
+    </div>
+  </div>
+
+  <section class="card-a" id="s2a">
+    <div class="section-header"><span class="pill pill-a">2A</span><h2 style="margin:0">Tracking setup</h2></div>
+    <hr style="border:none;border-top:1px solid #bfdbfe;margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block-a">
+        <p>What tracking technologies are deployed?</p>
+        <ul>
+          <li>Pixels (Meta, Google Ads, TikTok…)</li>
+          <li>Mobile SDKs</li>
+          <li>Tag managers (GTM, Tealium…)</li>
+        </ul>
+      </div>
+      <div class="q-block-a">
+        <p>On which channels?</p>
+        <ul>
+          <li>Web, app, or both?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-a" id="s3a">
+    <div class="section-header"><span class="pill pill-a">3A</span><h2 style="margin:0">Consent category and management in the banner</h2></div>
+    <hr style="border:none;border-top:1px solid #bfdbfe;margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block-a">
+        <p>Is there a specific category for social media / advertising?</p>
+        <ul>
+          <li>Or bundled under a generic "Advertising" category?</li>
+          <li>Separated from Analytics?</li>
+          <li>Separated from general Marketing?</li>
+        </ul>
+      </div>
+      <div class="q-block-a">
+        <p>Is the pixel actually blocked until the user consents?</p>
+        <ul>
+          <li>Does any pixel fire before acceptance?</li>
+          <li>What happens on rejection — fully blocked or partial data sent?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert">
+      <strong>Target model requirement:</strong> Social media / advertising must be a distinct consent category, blocked before acceptance, separate from Analytics and own-marketing categories.
+    </div>
+  </section>
+
+  <section class="card-a" id="s4a">
+    <div class="section-header"><span class="pill pill-a">4A</span><h2 style="margin:0">Data collected and identifiers</h2></div>
+    <hr style="border:none;border-top:1px solid #bfdbfe;margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block-a">
+        <p>What data does the pixel collect?</p>
+        <ul>
+          <li>Page views, events (conversions), user behaviour</li>
+          <li>Any form data or PII fields?</li>
+        </ul>
+      </div>
+      <div class="q-block-a">
+        <p>What identifiers are used?</p>
+        <ul>
+          <li>Cookies, device IDs</li>
+          <li>Hashed email/phone?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-a" id="s5a">
+    <div class="section-header"><span class="pill pill-a">5A</span><h2 style="margin:0">Purposes of tracking</h2></div>
+    <hr style="border:none;border-top:1px solid #bfdbfe;margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block-a">
+        <p>What is tracking used for?</p>
+        <ul>
+          <li>Retargeting</li>
+          <li>Conversion measurement</li>
+          <li>Audience building (lookalikes, custom audiences)</li>
+        </ul>
+      </div>
+      <div class="q-block-a">
+        <p>Are these purposes separated in the consent?</p>
+        <ul>
+          <li>Or all covered by a single "Advertising" toggle?</li>
+          <li>Can a user accept measurement but reject retargeting?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-a" id="s6a">
+    <div class="section-header"><span class="pill pill-a">6A</span><h2 style="margin:0">Cookie consent expiry and re-consent</h2></div>
+    <hr style="border:none;border-top:1px solid #bfdbfe;margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block-a">
+        <p>How long does cookie consent last?</p>
+        <ul>
+          <li>Defined expiry period? (6m, 1y…)</li>
+          <li>Stored in the CMP with an expiry date?</li>
+        </ul>
+      </div>
+      <div class="q-block-a">
+        <p>How is re-consent handled?</p>
+        <ul>
+          <li>Banner re-shown on expiry?</li>
+          <li>What happens if the user does not interact?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-a">
+      <strong>Note:</strong> Cookie consent expiry (CMP, Flow A) follows a completely different lifecycle from CRM consent expiry (Flow B) — do not treat them as equivalent.
+    </div>
+  </section>
+
+  <section class="card-a" id="s7a">
+    <div class="section-header"><span class="pill pill-a">7A</span><h2 style="margin:0">Revocation (tracking)</h2></div>
+    <hr style="border:none;border-top:1px solid #bfdbfe;margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block-a">
+        <p>If a user withdraws or changes cookie consent:</p>
+        <ul>
+          <li>Is the pixel immediately deactivated?</li>
+          <li>Does tracking stop being sent to the platform?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FLOW B ══ -->
+  <div class="flow-banner flow-banner-b" id="flow-b">
+    <span style="font-size:26px">🟢</span>
+    <div>
+      <div class="flow-label flow-label-b">Flow B &nbsp;·&nbsp; CRM / First-party data</div>
+      <p class="flow-desc" style="color:#065f46">Covers customer or lead data from internal systems (CRM, CDP) uploaded or synced to social platforms.</p>
+    </div>
+  </div>
+
+  <section class="card-b" id="s2b">
+    <div class="section-header"><span class="pill pill-b">2B</span><h2 style="margin:0">Internal data origin</h2></div>
+    <hr style="border:none;border-top:1px solid var(--green-line);margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block-b">
+        <p>Which internal systems generate the data used in social?</p>
+        <ul>
+          <li>CRM, CDP, lead management system</li>
+        </ul>
+      </div>
+      <div class="q-block-b">
+        <p>What type of data is used?</p>
+        <ul>
+          <li>Email, phone, customer ID</li>
+          <li>Behavioural or transactional data from CRM?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-b" id="s3b">
+    <div class="section-header"><span class="pill pill-b">3B</span><h2 style="margin:0">Consent capture</h2><span class="pill pill-purple" style="font-size:11px">CRITICAL</span></div>
+    <hr style="border:none;border-top:1px solid var(--green-line);margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block-b">
+        <p>Where is consent captured?</p>
+        <ul>
+          <li>Web forms, preference centre</li>
+          <li>Call centre script, paper / partner form</li>
+          <li>Digital contract / onboarding</li>
+        </ul>
+      </div>
+      <div class="q-block-b">
+        <p>Does dedicated consent exist for social media targeting?</p>
+        <ul>
+          <li>Specific consent for social targeting?</li>
+          <li>Specific consent for data sharing with platforms?</li>
+          <li>Or is general marketing consent reused?</li>
+        </ul>
+      </div>
+      <div class="q-block-b">
+        <p>Is consent stored in the tools? Are the tools connected at consent level?</p>
+        <ul>
+          <li>Is consent recorded and retrievable in any internal system (CRM, CDP, marketing tool)?</li>
+          <li>Are those tools in sync — does a consent change in one propagate to the others?</li>
+          <li>Or does each tool manage consent independently with no shared layer?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-b">
+      <strong>This is where OneTrust plays a central role:</strong> The preference centre and consent capture journeys are the primary touchpoints OneTrust must govern for Flow B.
+    </div>
+    <div class="alert">
+      <strong>Target model requirement:</strong> Consent for CRM-based social targeting must be captured explicitly and separately from general marketing consent — it is a different purpose and a different data flow.
+    </div>
+  </section>
+
+  <section class="card-b" id="s4b">
+    <div class="section-header"><span class="pill pill-b">4B</span><h2 style="margin:0">Identifiers used in social</h2></div>
+    <hr style="border:none;border-top:1px solid var(--green-line);margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block-b">
+        <p>Which identifiers are used for platform matching?</p>
+        <ul>
+          <li>Email, phone, customer ID</li>
+          <li>Multi-key matching?</li>
+        </ul>
+      </div>
+      <div class="q-block-b">
+        <p>Are identifiers hashed before upload?</p>
+        <ul>
+          <li>SHA-256 or other?</li>
+          <li>Where? CRM, CDP, ad connector, or platform-side?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-b" id="s5b">
+    <div class="section-header"><span class="pill pill-b">5B</span><h2 style="margin:0">Audience creation</h2></div>
+    <hr style="border:none;border-top:1px solid var(--green-line);margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block-b">
+        <p>How are audiences created?</p>
+        <ul>
+          <li>Automated integration (ad connector, CDP sync)</li>
+          <li>Manual CSV / file export</li>
+          <li>API (CAPI, Customer Match…)</li>
+        </ul>
+      </div>
+      <div class="q-block-b">
+        <p>Are there manual uploads?</p>
+        <ul>
+          <li>Who does them — internal team or agency?</li>
+          <li>How are they controlled?</li>
+          <li>Is there a consent check and an audit trail?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-amber">
+      <strong>Highest-risk area:</strong> Manual uploads by agencies with no prior consent check or audit trail are the most common and most critical gap in Flow B.
+    </div>
+  </section>
+
+  <section class="card-b" id="s6b">
+    <div class="section-header"><span class="pill pill-b">6B</span><h2 style="margin:0">Consent validation before activation</h2><span class="pill pill-red" style="font-size:11px">Typical technical gap</span></div>
+    <hr style="border:none;border-top:1px solid var(--green-line);margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block-b">
+        <p>Is consent validated before creating audiences or uploading?</p>
+        <ul>
+          <li>Automatic or manual check?</li>
+          <li>CRM query, CDP flag, or no validation?</li>
+        </ul>
+      </div>
+      <div class="q-block-b">
+        <p>Where does validation happen?</p>
+        <ul>
+          <li>CRM, CDP, marketing tool?</li>
+          <li>Or does no formal validation exist today?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert">
+      <strong>Target model requirement:</strong> The system must automatically block any upload or audience activation without valid social media consent — manual controls are not sufficient.
+    </div>
+  </section>
+
+  <section class="card-b" id="s7b">
+    <div class="section-header"><span class="pill pill-b">7B</span><h2 style="margin:0">Consent expiry (Verisure tools)</h2></div>
+    <hr style="border:none;border-top:1px solid var(--green-line);margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block-b">
+        <p>Is there a defined expiry for social media consent in the Verisure tools?</p>
+        <ul>
+          <li>Defined validity period? (6m, 1y, 2y…)</li>
+          <li>Expiry date stored alongside the consent record?</li>
+        </ul>
+      </div>
+      <div class="q-block-b">
+        <p>Is validity checked before each activation?</p>
+        <ul>
+          <li>Do systems check expiry before each upload or sync?</li>
+          <li>Or only at the moment consent was originally captured?</li>
+        </ul>
+      </div>
+      <div class="q-block-b">
+        <p>Is there a re-consent process before expiry?</p>
+        <ul>
+          <li>Which channel is used for renewal?</li>
+          <li>What happens if the user does not respond?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert-b">
+      <strong>Note:</strong> Verisure tools consent expiry (Flow B) and cookie consent expiry (Flow A) are completely separate — a user may have valid cookie consent but an expired Verisure tools consent. Both must be checked independently.
+    </div>
+    <div class="alert-amber">
+      <strong>Silent gap:</strong> Audiences loaded from already-expired Verisure tools consents are almost never excluded automatically — very common finding.
+    </div>
+  </section>
+
+  <section class="card-b" id="s8b">
+    <div class="section-header"><span class="pill pill-b">8B</span><h2 style="margin:0">Revocation and platform sync</h2></div>
+    <hr style="border:none;border-top:1px solid var(--green-line);margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block-b">
+        <p>If a customer withdraws CRM-based consent:</p>
+        <ul>
+          <li>Are they removed from active platform audiences?</li>
+          <li>How quickly is it propagated?</li>
+        </ul>
+      </div>
+      <div class="q-block-b">
+        <p>Are new uploads and audience refresh stopped?</p>
+        <ul>
+          <li>Automated syncs, ad connectors, CSV uploads?</li>
+          <li>Automatic or manual?</li>
+        </ul>
+      </div>
+      <div class="q-block-b">
+        <p>Is there synchronisation with the platforms?</p>
+        <ul>
+          <li>Is the platform notified to suppress or delete the record?</li>
+          <li>Covered by the platform DPA / terms?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert">
+      <strong>Target model requirement:</strong> Withdrawal must trigger immediate stop of new uploads, blocking of refresh, removal from existing audiences, and platform notification — without undue delay.
+    </div>
+  </section>
+
+  <!-- ══ CROSS-CUTTING ══ -->
+  <div class="flow-banner flow-banner-x" id="flow-x">
+    <span style="font-size:26px">🔴</span>
+    <div>
+      <div class="flow-label flow-label-x">Cross-cutting blocks &nbsp;·&nbsp; Apply to both Flow A and Flow B</div>
+      <p class="flow-desc" style="color:var(--red)">Traceability, systems architecture, and gap checklist.</p>
+    </div>
+  </div>
+
+  <section class="card-x" id="s9">
+    <div class="section-header"><span class="pill pill-x">9</span><h2 style="margin:0">Traceability and logging</h2></div>
+    <hr style="border:none;border-top:1px solid var(--red-line);margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block">
+        <p>Are audiences and uploads logged? (Flow B)</p>
+        <ul>
+          <li>Date, data type/volume, platform, who uploaded?</li>
+          <li>Both automated and manual uploads?</li>
+        </ul>
+      </div>
+      <div class="q-block">
+        <p>Is consent evidence linked to each activation?</p>
+        <ul>
+          <li>Timestamp, purpose, channel, wording version?</li>
+          <li>Does "social media" appear explicitly as the purpose?</li>
+        </ul>
+      </div>
+      <div class="q-block">
+        <p>Can data shared with platforms be audited?</p>
+        <ul>
+          <li>Transfer log accessible to Privacy / Legal?</li>
+          <li>Chain from consent to activated audience traceable?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert">
+      <strong>Target model requirement:</strong> Every data transfer (Flow B) and tracking activation (Flow A) must be fully logged: platform, dataset, timestamp, country, volume, and linked consent evidence.
+    </div>
+  </section>
+
+  <section class="card-x" id="s10">
+    <div class="section-header"><span class="pill pill-x">10</span><h2 style="margin:0">Systems and architecture</h2></div>
+    <hr style="border:none;border-top:1px solid var(--red-line);margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block">
+        <p>Which systems are involved in the social media flow?</p>
+        <ul>
+          <li>CRM, CDP, marketing automation (Flow B)</li>
+          <li>CMP, tag manager, ad connectors (Flow A + B)</li>
+        </ul>
+      </div>
+      <div class="q-block">
+        <p>Where is the consent source of truth per flow?</p>
+        <ul>
+          <li>Flow A → CMP</li>
+          <li>Flow B → CRM / CDP</li>
+          <li>Are they the same system or separate?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="alert">
+      <strong>Target model requirement:</strong> A central (or consistently governed) consent validation layer must exist — campaign tools, ad connectors and tracking systems must consume validated eligibility status, not manage their own logic.
+    </div>
+  </section>
+
+  <section class="card-x" id="s11">
+    <div class="section-header"><span class="pill pill-x">11</span><h2 style="margin:0">Risks and gaps</h2><span class="pill pill-red">Red flags checklist</span></div>
+    <p class="note">Document any confirmed gap in the country gap log.</p>
+    <hr style="border:none;border-top:1px solid var(--red-line);margin:6px 0 12px"/>
+    <div class="q-grid">
+      <div class="q-block" style="border-left:3px solid #2563eb">
+        <p>🔵 Pixel / Tracking gaps</p>
+        <ul>
+          <li>Pixel fires before user accepts in the banner?</li>
+          <li>No specific social / advertising category in CMP?</li>
+          <li>All tracking purposes bundled under one toggle?</li>
+        </ul>
+      </div>
+      <div class="q-block" style="border-left:3px solid var(--green)">
+        <p>🟢 CRM / First-party gaps</p>
+        <ul>
+          <li>General marketing consent reused for social targeting?</li>
+          <li>Manual uploads with no consent check or audit trail?</li>
+          <li>No pre-upload consent validation in any system?</li>
+        </ul>
+      </div>
+      <div class="q-block">
+        <p>&#128257; Revocation / expiry gaps</p>
+        <ul>
+          <li>Withdrawal not propagated to platforms?</li>
+          <li>Expired CRM consents still active in audiences?</li>
+        </ul>
+      </div>
+      <div class="q-block">
+        <p>&#129534; Traceability gaps</p>
+        <ul>
+          <li>No audience inventory or upload log?</li>
+          <li>No transfer log accessible to Privacy / Legal?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PER-COUNTRY WORKSHEET -->
+  <section class="card" id="worksheet" style="margin-top:24px">
+    <div class="section-header">
+      <span class="section-icon">&#128203;</span>
+      <h2 style="margin:0">Per-country worksheet</h2>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;margin:12px 0 16px;flex-wrap:wrap">
+      <label style="font-weight:700;font-size:14px">Country:</label>
+      <span contenteditable="true" style="min-width:160px;border:2px dashed var(--accent);border-radius:8px;padding:5px 12px;font-size:15px;font-weight:700;color:var(--accent);outline:none;background:var(--soft)">________________</span>
+      <label style="font-weight:700;font-size:14px;margin-left:10px">Workshop date:</label>
+      <span contenteditable="true" style="min-width:120px;border:2px dashed var(--line);border-radius:8px;padding:5px 12px;font-size:14px;outline:none;background:#f8fafd">________________</span>
+      <label style="font-weight:700;font-size:14px;margin-left:10px">Participants:</label>
+      <span contenteditable="true" style="min-width:200px;border:2px dashed var(--line);border-radius:8px;padding:5px 12px;font-size:14px;outline:none;background:#f8fafd">________________</span>
+    </div>
+    <div style="margin-bottom:12px">
+      <strong style="font-size:13px">Data origin (B1 answer):</strong>
+      &nbsp;<span contenteditable="true" style="display:inline-block;min-width:200px;border:1px solid var(--purple-line);background:var(--purple-soft);border-radius:6px;padding:4px 10px;font-size:13px;outline:none;color:var(--purple)">A only / B only / A + B</span>
+    </div>
+
+    <div class="table-wrap">
+    <table id="ws-table">
+      <thead>
+        <tr><th>Block</th><th>Question</th><th>Country answer</th></tr>
+      </thead>
+      <tbody>
+        <tr style="background:#f0f4fa"><td colspan="3" style="font-weight:700;color:#000;font-size:12px;padding:7px 12px">&#129517; B1 — Business context</td></tr>
+        <tr><td>Use cases</td><td>What is social media used for? Which platforms?</td><td contenteditable="true" class="editable"></td></tr>
+        <tr><td>Management</td><td>Internal or agency? Which tools?</td><td contenteditable="true" class="editable"></td></tr>
+        <tr><td style="color:#000;font-weight:800">Data origin ⚑</td><td>Pixel/tracking (A), CRM/internal (B), or both?</td><td contenteditable="true" class="editable"></td></tr>
+
+        <tr style="background:#dbeafe"><td colspan="3" style="font-weight:700;color:#000;font-size:12px;padding:7px 12px">🔵 FLOW A – Pixel / Tracking</td></tr>
+        <tr><td>2A · Tech</td><td>Pixels, SDKs, tag manager? Web, app or both?</td><td contenteditable="true" class="editable-a"></td></tr>
+        <tr><td>3A · Banner category</td><td>Specific social/ads category? Separated from Analytics? Pixel blocked before consent?</td><td contenteditable="true" class="editable-a"></td></tr>
+        <tr><td>4A · Data &amp; IDs</td><td>What does pixel collect? Cookies, device IDs, hashed email? PII or pseudonymised?</td><td contenteditable="true" class="editable-a"></td></tr>
+        <tr><td>5A · Purposes</td><td>Retargeting, measurement, audience building — separated in consent or bundled?</td><td contenteditable="true" class="editable-a"></td></tr>
+        <tr><td>6A · Expiry</td><td>Defined cookie consent expiry? Re-consent process?</td><td contenteditable="true" class="editable-a"></td></tr>
+        <tr><td>7A · Revocation</td><td>Pixel deactivated immediately on withdrawal? Tracking audiences deleted from platform?</td><td contenteditable="true" class="editable-a"></td></tr>
+
+        <tr style="background:#d1fae5"><td colspan="3" style="font-weight:700;color:#000;font-size:12px;padding:7px 12px">🟢 FLOW B – CRM / First-party data</td></tr>
+        <tr><td>2B · Origin</td><td>Which internal systems? (CRM, CDP, leads) What data? (email, phone, ID)</td><td contenteditable="true" class="editable-b"></td></tr>
+        <tr><td>3B · Consent capture</td><td>Where captured? Dedicated social consent or general marketing?</td><td contenteditable="true" class="editable-b"></td></tr>
+        <tr><td>4B · Identifiers</td><td>Email, phone or customer ID for matching? Hashed — where?</td><td contenteditable="true" class="editable-b"></td></tr>
+        <tr><td>5B · Audience creation</td><td>Automated, CDP, manual CSV? Who does manual uploads? Consent check + audit trail?</td><td contenteditable="true" class="editable-b"></td></tr>
+        <tr><td>6B · Validation</td><td>Consent validated before upload? Automatic or manual? Which system?</td><td contenteditable="true" class="editable-b"></td></tr>
+        <tr><td>7B · Tools expiry</td><td>Defined validity period? Checked before each activation? Re-consent process?</td><td contenteditable="true" class="editable-b"></td></tr>
+        <tr><td>8B · Revocation</td><td>Removed from platform audiences on withdrawal? Syncs stopped? Platform notified?</td><td contenteditable="true" class="editable-b"></td></tr>
+
+        <tr style="background:var(--red-soft)"><td colspan="3" style="font-weight:700;color:#000;font-size:12px;padding:7px 12px">🔴 Cross-cutting</td></tr>
+        <tr><td>9 · Logging</td><td>Uploads and audiences logged (date, data, platform, responsible)? Consent linked? Auditable?</td><td contenteditable="true" class="editable"></td></tr>
+        <tr><td>10 · Systems</td><td>Full tech stack? Consent source of truth per flow? Central validation (OneTrust)?</td><td contenteditable="true" class="editable"></td></tr>
+        <tr><td style="color:#000">11 · 🔵 Pixel gaps</td><td>Pixel fires before banner? No social category? Purposes bundled?</td><td contenteditable="true" class="editable"></td></tr>
+        <tr><td style="color:#000">11 · 🟢 CRM gaps</td><td>General consent reused? Manual uploads uncontrolled? No validation?</td><td contenteditable="true" class="editable"></td></tr>
+        <tr><td>11 · Revocation</td><td>Withdrawal not propagated? Expired consents in active audiences?</td><td contenteditable="true" class="editable"></td></tr>
+        <tr><td>11 · Traceability</td><td>No audience inventory? No transfer log for Privacy / Legal?</td><td contenteditable="true" class="editable"></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <span style="font-size:12px;color:var(--muted)">Save: Ctrl+P → PDF &nbsp;|&nbsp; Ctrl+S → HTML with edits (Chrome / Edge).</span>
+    </div>
+  </section>
+
+</main>
+<footer class="footer">
+  <p>Discovery Questionnaire – UC06 Social Media &nbsp;|&nbsp; Consent Management Deployment Project &nbsp;|&nbsp; Internal use: Marketing · IT · Privacy · Data · Agencies</p>
+</footer>
+</body>
+</html>
